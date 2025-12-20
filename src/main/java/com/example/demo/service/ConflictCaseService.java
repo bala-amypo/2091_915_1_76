@@ -3,7 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.ConflictCase;
 import java.util.List;
 
-@Service
+
 public interface ConflictCaseService {
     ConflictCase createCase(ConflictCase conflictCase);
     ConflictCase updateCaseStatus(Long caseId, String status);

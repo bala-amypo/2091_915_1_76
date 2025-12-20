@@ -8,6 +8,7 @@ import com.example.demo.service.ConflictFlagService;
 
 import java.util.List;
 
+@Service
 public class ConflictFlagServiceImpl
         implements ConflictFlagService {
 
