@@ -83,6 +83,17 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+        <dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.hibernate.validator</groupId>
+    <artifactId>hibernate-validator</artifactId>
+</dependency>
+
 
     </dependencies>
 
@@ -104,6 +115,7 @@
                         <artifactId>surefire-testng</artifactId>
                         <version>3.2.5</version>
                     </dependency>
+                    
                 </dependencies>
             </plugin>
 
