@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.PersonProfile;
 
-@Repository
+
 public interface RelationshipDeclarationRepository extends JpaRepository<RelationshipDeclaration, Long> {
 
 }
