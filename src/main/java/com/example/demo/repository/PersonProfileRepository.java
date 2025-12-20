@@ -4,6 +4,7 @@ import com.example.demo.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.*;
 
+@Repository
 public interface PersonProfileRepository extends JpaRepository<PersonProfile, Long> {
     Optional<PersonProfile> findByEmail(String email);
     Optional<PersonProfile> findByReferenceId(String referenceId);
