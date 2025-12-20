@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.VendorEngagementRecord;
 import java.util.List;
 
+@Service
 public interface VendorEngagementService {
     VendorEngagementRecord addEngagement(VendorEngagementRecord record);
     List<VendorEngagementRecord> getEngagementsByEmployee(Long employeeId);

@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.ConflictFlag;
 import java.util.List;
 
+@Service
 public interface ConflictFlagService {
     ConflictFlag addFlag(ConflictFlag flag);
     List<ConflictFlag> getFlagsByCase(Long caseId);
