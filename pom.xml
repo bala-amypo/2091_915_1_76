@@ -43,13 +43,6 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- SECURITY (REQUIRED FOR COMPILATION) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
         <!-- SERVLET API (FILTER SUPPORT) -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
