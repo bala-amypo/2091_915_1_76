@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 @Entity
