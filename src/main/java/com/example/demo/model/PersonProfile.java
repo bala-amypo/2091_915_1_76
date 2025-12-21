@@ -13,6 +13,8 @@ public class PersonProfile {
     private String email;
     private String department;
     private Boolean relationshipDeclared;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public Long getId() {
