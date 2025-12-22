@@ -13,7 +13,7 @@ public class PersonProfile {
     private String fullName;   
     private String email;
     private String department;
-    private Boolean relationshipDeclared;
+    private Boolean relationshipDeclared=false;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
