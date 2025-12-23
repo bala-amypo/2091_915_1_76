@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import com.example.demo.model.PersonProfile;
 import com.example.demo.service.PersonProfileService;
 
@@ -31,7 +31,7 @@ public class PersonProfileController {
     }
 
     @GetMapping("/reference/{refId}")
-    public PersonProfile getByReferenceId(@PathVariable String refId) {
+    public PersonProfile getByReferenceId(@Valid @PathVariable String refId) {
         return service.findByReferenceId(refId);
     }
 
