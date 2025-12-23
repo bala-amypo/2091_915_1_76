@@ -16,6 +16,7 @@ public class ConflictCase {
     private String details;
     private String status;
     private LocalDateTime detectedAt;
+    
     public Long getId() {
         return id;
     }

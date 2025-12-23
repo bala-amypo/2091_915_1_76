@@ -13,6 +13,12 @@ public class RelationshipDeclaration {
     private String description;
     private LocalDateTime declaredAt;
     private Boolean isVerified;
+    @PrePersist
+    public void prePersist() {
+        if (isVerified == null) {
+            isVerified = false;
+        }
+    }
     public Long getId() {
         return id;
     }
