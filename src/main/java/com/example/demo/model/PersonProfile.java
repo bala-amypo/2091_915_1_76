@@ -5,17 +5,22 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 @Entity
+@Table(
+    name = "person_profile",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "reference_id")
+    }
+)
 public class PersonProfile {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String personType;
-    @Column(nullable = false, unique = true)
     private String referenceId;
     @NotBlank(message = "Full name is required")
     private String fullName; 
     @Email(message = "Email should be valid")  
-    @Column(nullable = false, unique = true)
     private String email;
     private String department;
     private Boolean relationshipDeclared=false;
