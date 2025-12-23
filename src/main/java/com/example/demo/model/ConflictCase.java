@@ -19,7 +19,7 @@ public class ConflictCase {
     @PrePersist
     public void prePersist() {
     if (status == null) {
-        status = false;
+        status = OPEN;
         }
     }
     public Long getId() {
