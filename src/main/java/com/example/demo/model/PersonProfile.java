@@ -23,7 +23,13 @@ public class PersonProfile {
     @Email(message = "Email should be valid")  
     private String email;
     private String department;
-    private Boolean relationshipDeclared=false;
+    @PrePersist
+    public void prePersist() {
+    if (relationshipDeclared == null) {
+        relationshipDeclared = false;
+    }
+}
+    private Boolean relationshipDeclared;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
