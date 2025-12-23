@@ -16,7 +16,12 @@ public class ConflictCase {
     private String details;
     private String status;
     private LocalDateTime detectedAt;
-    
+    @PrePersist
+    public void prePersist() {
+    if (status == null) {
+        status = false;
+        }
+    }
     public Long getId() {
         return id;
     }
