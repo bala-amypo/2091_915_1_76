@@ -14,14 +14,9 @@ public class ConflictCase {
     private String triggerSource;
     private String riskLevel;
     private String details;
-    private String status;
-    private LocalDateTime detectedAt;
-    @PrePersist
-    public void prePersist() {
-    if (status == null) {
-        status = OPEN;
-        }
-    }
+    private String status="OPEN";
+    private LocalDateTime detectedAt;  
+    
     public Long getId() {
         return id;
     }
