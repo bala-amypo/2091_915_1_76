@@ -6,14 +6,18 @@ import com.example.demo.security.JwtTokenProvider;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
-    // ✅ JWT provider bean
+    // ===============================
+    // COMMON BEANS
+    // ===============================
+
     @Bean
     public JwtTokenProvider jwtTokenProvider() {
         return new JwtTokenProvider(
@@ -22,37 +26,55 @@ public class SecurityConfig {
         );
     }
 
-    // ✅ in-memory user service bean
     @Bean
     public CustomUserDetailsService customUserDetailsService() {
         return new CustomUserDetailsService();
     }
 
-    // ✅ JWT filter bean
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(
             JwtTokenProvider jwtTokenProvider,
             CustomUserDetailsService userDetailsService) {
-
         return new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService);
     }
 
-    // ✅ security chain
+    // ===============================
+    // 1️⃣ PUBLIC ENDPOINTS (NO SECURITY)
+    // ===============================
     @Bean
-    public SecurityFilterChain filterChain(
+    @Order(1)
+    public SecurityFilterChain publicChain(HttpSecurity http) throws Exception {
+
+        http
+            .securityMatcher(
+                "/auth/**",
+                "/swagger-ui/**",
+                "/v3/api-docs/**"
+            )
+            .csrf(csrf -> csrf.disable())
+            .formLogin(form -> form.disable())
+            .httpBasic(basic -> basic.disable())
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll()
+            );
+
+        return http.build();
+    }
+
+    // ===============================
+    // 2️⃣ PROTECTED ENDPOINTS (JWT)
+    // ===============================
+    @Bean
+    @Order(2)
+    public SecurityFilterChain protectedChain(
             HttpSecurity http,
             JwtAuthenticationFilter jwtFilter) throws Exception {
 
         http
+            .csrf(csrf -> csrf.disable())
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
-            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                        "/auth/**",
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**"
-                ).permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
