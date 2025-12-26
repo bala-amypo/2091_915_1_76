@@ -5,6 +5,7 @@ import com.example.demo.model.ConflictCase;
 import com.example.demo.repository.ConflictCaseRepository;
 import com.example.demo.repository.ConflictFlagRepository;
 import com.example.demo.service.ConflictCaseService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;

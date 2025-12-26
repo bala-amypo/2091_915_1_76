@@ -4,6 +4,7 @@ import com.example.demo.exception.ApiException;
 import com.example.demo.model.PersonProfile;
 import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.service.PersonProfileService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
