@@ -1,20 +1,48 @@
 package com.example.demo.security;
 
+import io.jsonwebtoken.*;
+
+import java.util.Date;
+
 public class JwtTokenProvider {
 
-    public JwtTokenProvider() {
-        // dummy constructor
+    private final String secretKey;
+    private final long validityInMs;
+
+    public JwtTokenProvider(String secretKey, long validityInMs) {
+        this.secretKey = secretKey;
+        this.validityInMs = validityInMs;
     }
 
-    public String generateToken(String username) {
-        return "dummy-token";
+    public String generateToken(UserPrincipal user) {
+
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMs);
+
+        return Jwts.builder()
+                .setSubject(user.getUsername())
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 
     public boolean validateToken(String token) {
-        return true;
+        try {
+            Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public String getUsernameFromToken(String token) {
-        return "dummy-user";
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }
