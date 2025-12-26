@@ -1,56 +1,62 @@
 package com.example.demo.model;
 
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "conflict_flag")
 public class ConflictFlag {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long caseId;
+
     private String flagType;
+
     private String description;
+
     private String severity;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime flaggedAt;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getCaseId() {
-        return caseId;
-    }
-    public void setCaseId(Long caseId) {
-        this.caseId = caseId;
-    }
-    public String getFlagType() {
-        return flagType;
-    }
+
+    // getters & setters
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getCaseId() { return caseId; }
+    public void setCaseId(Long caseId) { this.caseId = caseId; }
+
+    public String getFlagType() { return flagType; }
     public void setFlagType(String flagType) {
         this.flagType = flagType;
     }
-    public String getDescription() {
-        return description;
-    }
+
+    public String getDescription() { return description; }
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getSeverity() {
-        return severity;
-    }
+
+    public String getSeverity() { return severity; }
     public void setSeverity(String severity) {
         this.severity = severity;
     }
-    public LocalDateTime getFlaggedAt() {
-        return flaggedAt;
-    }
+
+    public LocalDateTime getFlaggedAt() { return flaggedAt; }
     public void setFlaggedAt(LocalDateTime flaggedAt) {
         this.flaggedAt = flaggedAt;
     }
-    public ConflictFlag(Long id, Long caseId, String flagType, String description, String severity,
-            LocalDateTime flaggedAt) {
+
+    public ConflictFlag() {}
+
+    public ConflictFlag(Long id, Long caseId, String flagType,
+                        String description, String severity,
+                        LocalDateTime flaggedAt) {
         this.id = id;
         this.caseId = caseId;
         this.flagType = flagType;
@@ -58,9 +64,4 @@ public class ConflictFlag {
         this.severity = severity;
         this.flaggedAt = flaggedAt;
     }
-    public ConflictFlag() {
-    }
-
 }
-
-
