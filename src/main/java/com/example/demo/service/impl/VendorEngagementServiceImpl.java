@@ -5,39 +5,48 @@ import com.example.demo.model.VendorEngagementRecord;
 import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.repository.VendorEngagementRecordRepository;
 import com.example.demo.service.VendorEngagementService;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-@Service
-public class VendorEngagementServiceImpl
-        implements VendorEngagementService {
+public class VendorEngagementServiceImpl implements VendorEngagementService {
 
-    private final VendorEngagementRecordRepository repo;
+    private final VendorEngagementRecordRepository engagementRepo;
     private final PersonProfileRepository personRepo;
 
     public VendorEngagementServiceImpl(
-            VendorEngagementRecordRepository repo,
+            VendorEngagementRecordRepository engagementRepo,
             PersonProfileRepository personRepo) {
-        this.repo = repo;
+
+        this.engagementRepo = engagementRepo;
         this.personRepo = personRepo;
     }
 
-    public VendorEngagementRecord addEngagement(VendorEngagementRecord r) {
-        if (personRepo.findById(r.getEmployeeId()).isEmpty()
-                || personRepo.findById(r.getVendorId()).isEmpty())
-            throw new ApiException("person not found");
-        return repo.save(r);
+    @Override
+    public VendorEngagementRecord addEngagement(VendorEngagementRecord record) {
+
+        if (personRepo.findById(record.getEmployeeId()).isEmpty()) {
+            throw new ApiException("employee");
+        }
+
+        if (personRepo.findById(record.getVendorId()).isEmpty()) {
+            throw new ApiException("vendor");
+        }
+
+        return engagementRepo.save(record);
     }
 
-    public List<VendorEngagementRecord> getEngagementsByEmployee(Long id) {
-        return repo.findByEmployeeId(id);
+    @Override
+    public List<VendorEngagementRecord> getEngagementsByEmployee(Long employeeId) {
+        return engagementRepo.findByEmployeeId(employeeId);
     }
 
-    public List<VendorEngagementRecord> getEngagementsByVendor(Long id) {
-        return repo.findByVendorId(id);
+    @Override
+    public List<VendorEngagementRecord> getEngagementsByVendor(Long vendorId) {
+        return engagementRepo.findByVendorId(vendorId);
     }
 
+    @Override
     public List<VendorEngagementRecord> getAllEngagements() {
-        return repo.findAll();
+        return engagementRepo.findAll();
     }
 }
