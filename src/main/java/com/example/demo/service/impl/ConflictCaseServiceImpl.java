@@ -9,6 +9,7 @@ import com.example.demo.service.ConflictCaseService;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ConflictCaseServiceImpl implements ConflictCaseService {
 
     private final ConflictCaseRepository caseRepo;

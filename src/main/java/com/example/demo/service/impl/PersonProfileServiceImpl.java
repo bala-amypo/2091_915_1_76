@@ -8,6 +8,7 @@ import com.example.demo.service.PersonProfileService;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PersonProfileServiceImpl implements PersonProfileService {
 
     private final PersonProfileRepository personRepo;

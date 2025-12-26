@@ -9,6 +9,7 @@ import com.example.demo.service.RelationshipDeclarationService;
 
 import java.util.List;
 
+@Service
 public class RelationshipDeclarationServiceImpl implements RelationshipDeclarationService {
 
     private final RelationshipDeclarationRepository relationshipRepo;

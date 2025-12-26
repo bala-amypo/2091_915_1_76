@@ -8,6 +8,7 @@ import com.example.demo.service.VendorEngagementService;
 
 import java.util.List;
 
+@Service
 public class VendorEngagementServiceImpl implements VendorEngagementService {
 
     private final VendorEngagementRecordRepository engagementRepo;
