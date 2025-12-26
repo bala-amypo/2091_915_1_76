@@ -1,23 +1,23 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.VendorEngagementRecord;
 import com.example.demo.service.VendorEngagementService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/engagements")
 public class VendorEngagementController {
 
-    @Autowired
-    VendorEngagementService service;
+    private final VendorEngagementService service;
+
+    public VendorEngagementController(VendorEngagementService service) {
+        this.service = service;
+    }
 
     @PostMapping("/add")
-    public VendorEngagementRecord addEngagement(
-            @RequestBody VendorEngagementRecord record) {
+    public VendorEngagementRecord add(@RequestBody VendorEngagementRecord record) {
         return service.addEngagement(record);
     }
 
@@ -33,7 +33,7 @@ public class VendorEngagementController {
         return service.getEngagementsByVendor(vendorId);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public List<VendorEngagementRecord> getAll() {
         return service.getAllEngagements();
     }

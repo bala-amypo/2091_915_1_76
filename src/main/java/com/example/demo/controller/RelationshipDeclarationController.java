@@ -1,30 +1,25 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.RelationshipDeclaration;
 import com.example.demo.service.RelationshipDeclarationService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/relationships")
 public class RelationshipDeclarationController {
 
-    @Autowired
-    RelationshipDeclarationService service;
+    private final RelationshipDeclarationService service;
 
-    @PostMapping("/declare")
-    public RelationshipDeclaration declare(
-            @RequestBody RelationshipDeclaration declaration) {
-        return service.declareRelationship(declaration);
+    public RelationshipDeclarationController(RelationshipDeclarationService service) {
+        this.service = service;
     }
 
-    @GetMapping("/person/{personId}")
-    public List<RelationshipDeclaration> getByPerson(
-            @PathVariable Long personId) {
-        return service.getDeclarationsByPerson(personId);
+    @PostMapping("/declare")
+    public RelationshipDeclaration declare(@RequestBody RelationshipDeclaration declaration) {
+        return service.declareRelationship(declaration);
     }
 
     @PutMapping("/verify/{id}")
@@ -34,7 +29,12 @@ public class RelationshipDeclarationController {
         return service.verifyDeclaration(id, verified);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/person/{personId}")
+    public List<RelationshipDeclaration> getByPerson(@PathVariable Long personId) {
+        return service.getDeclarationsByPerson(personId);
+    }
+
+    @GetMapping("/all")
     public List<RelationshipDeclaration> getAll() {
         return service.getAllDeclarations();
     }

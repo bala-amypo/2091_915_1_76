@@ -1,28 +1,28 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.ConflictFlag;
 import com.example.demo.service.ConflictFlagService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/conflictFlags")
+@RequestMapping("/conflict-flags")
 public class ConflictFlagController {
 
-    @Autowired
-    ConflictFlagService service;
+    private final ConflictFlagService service;
+
+    public ConflictFlagController(ConflictFlagService service) {
+        this.service = service;
+    }
 
     @PostMapping("/add")
-    public ConflictFlag addFlag(@RequestBody ConflictFlag flag) {
+    public ConflictFlag add(@RequestBody ConflictFlag flag) {
         return service.addFlag(flag);
     }
 
     @GetMapping("/case/{caseId}")
-    public List<ConflictFlag> getByCase(
-            @PathVariable Long caseId) {
+    public List<ConflictFlag> getByCase(@PathVariable Long caseId) {
         return service.getFlagsByCase(caseId);
     }
 
@@ -31,7 +31,7 @@ public class ConflictFlagController {
         return service.getFlagById(id);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public List<ConflictFlag> getAll() {
         return service.getAllFlags();
     }

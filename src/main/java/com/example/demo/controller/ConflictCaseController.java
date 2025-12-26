@@ -1,22 +1,23 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.ConflictCase;
 import com.example.demo.service.ConflictCaseService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/conflictCases")
+@RequestMapping("/conflict-cases")
 public class ConflictCaseController {
 
-    @Autowired
-    ConflictCaseService service;
+    private final ConflictCaseService service;
+
+    public ConflictCaseController(ConflictCaseService service) {
+        this.service = service;
+    }
 
     @PostMapping("/create")
-    public ConflictCase createCase(@RequestBody ConflictCase conflictCase) {
+    public ConflictCase create(@RequestBody ConflictCase conflictCase) {
         return service.createCase(conflictCase);
     }
 
@@ -28,17 +29,11 @@ public class ConflictCaseController {
     }
 
     @GetMapping("/person/{personId}")
-    public List<ConflictCase> getByPerson(
-            @PathVariable Long personId) {
+    public List<ConflictCase> getByPerson(@PathVariable Long personId) {
         return service.getCasesByPerson(personId);
     }
 
-    @GetMapping("/get/{id}")
-    public ConflictCase getById(@PathVariable Long id) {
-        return service.getCaseById(id);
-    }
-
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     public List<ConflictCase> getAll() {
         return service.getAllCases();
     }

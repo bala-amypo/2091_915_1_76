@@ -15,13 +15,11 @@ public class PersonProfileController {
         this.service = service;
     }
 
-    // ✅ tests call: controller.create(person)
     public ResponseEntity<PersonProfile> create(PersonProfile person) {
         PersonProfile saved = service.createPerson(person);
         return ResponseEntity.ok(saved);
     }
 
-    // optional REST endpoint (won’t break tests)
     @PostMapping("/create")
     public PersonProfile createPerson(@RequestBody PersonProfile person) {
         return service.createPerson(person);
@@ -37,7 +35,6 @@ public class PersonProfileController {
         return service.getPersonById(id);
     }
 
-    // ✅ tests call: controller.lookup("REF")
     public ResponseEntity<PersonProfile> lookup(String refId) {
         return service.findByReferenceId(refId)
                 .map(ResponseEntity::ok)
