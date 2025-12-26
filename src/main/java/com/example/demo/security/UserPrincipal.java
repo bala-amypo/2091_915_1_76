@@ -24,13 +24,9 @@ public class UserPrincipal implements UserDetails {
         return id;
     }
 
-    public String getRole() {
-        return role;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // tests don't care
+        return Collections.emptyList();
     }
 
     @Override
