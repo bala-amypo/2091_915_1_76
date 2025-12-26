@@ -1,7 +1,6 @@
 package com.example.demo.security;
 
 import io.jsonwebtoken.*;
-
 import java.util.Date;
 
 public class JwtTokenProvider {
@@ -16,19 +15,17 @@ public class JwtTokenProvider {
 
     public String generateToken(UserPrincipal user) {
 
-    Date now = new Date();
-    Date expiry = new Date(now.getTime() + validityInMs);
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + validityInMs);
 
-    return Jwts.builder()
-            .setSubject(user.getUsername())
-            .claim("userId", user.getId())   
-            .claim("role", user.getRole())  
-            .setIssuedAt(now)
-            .setExpiration(expiry)
-            .signWith(SignatureAlgorithm.HS256, secretKey)
-            .compact();
-}
-
+        return Jwts.builder()
+                .setSubject(user.getUsername())
+                .claim("userId", user.getId())   // ✅ REQUIRED
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
 
     public boolean validateToken(String token) {
         try {
@@ -48,15 +45,4 @@ public class JwtTokenProvider {
                 .getBody()
                 .getSubject();
     }
-
-    public Long getUserIdFromToken(String token) {
-    Claims claims = Jwts.parser()
-            .setSigningKey(secretKey)
-            .parseClaimsJws(token)
-            .getBody();
-
-    Object id = claims.get("userId");
-    return id == null ? null : Long.valueOf(id.toString());
-}
-
 }
