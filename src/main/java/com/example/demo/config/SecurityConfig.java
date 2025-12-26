@@ -44,6 +44,8 @@ public class SecurityConfig {
             JwtAuthenticationFilter jwtFilter) throws Exception {
 
         http
+            .formLogin(form -> form.disable())
+            .httpBasic(basic -> basic.disable())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
