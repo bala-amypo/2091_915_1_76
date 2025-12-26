@@ -16,16 +16,19 @@ public class JwtTokenProvider {
 
     public String generateToken(UserPrincipal user) {
 
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + validityInMs);
+    Date now = new Date();
+    Date expiry = new Date(now.getTime() + validityInMs);
 
-        return Jwts.builder()
-                .setSubject(user.getUsername())
-                .setIssuedAt(now)
-                .setExpiration(expiry)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
-    }
+    return Jwts.builder()
+            .setSubject(user.getUsername())
+            .claim("userId", user.getId())   
+            .claim("role", user.getRole())  
+            .setIssuedAt(now)
+            .setExpiration(expiry)
+            .signWith(SignatureAlgorithm.HS256, secretKey)
+            .compact();
+}
+
 
     public boolean validateToken(String token) {
         try {
