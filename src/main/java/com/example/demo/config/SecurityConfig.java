@@ -14,10 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-    // ===============================
-    // COMMON BEANS
-    // ===============================
-
     @Bean
     public JwtTokenProvider jwtTokenProvider() {
         return new JwtTokenProvider(
@@ -38,9 +34,6 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService);
     }
 
-    // ===============================
-    // 1️⃣ PUBLIC ENDPOINTS (NO SECURITY)
-    // ===============================
     @Bean
     @Order(1)
     public SecurityFilterChain publicChain(HttpSecurity http) throws Exception {
@@ -61,9 +54,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ===============================
-    // 2️⃣ PROTECTED ENDPOINTS (JWT)
-    // ===============================
     @Bean
     @Order(2)
     public SecurityFilterChain protectedChain(
